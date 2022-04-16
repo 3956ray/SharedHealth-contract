@@ -7,7 +7,8 @@ import org.hyperledger.fabric.contract.annotation.Property;
 
 
 @DataType
-@Data@Accessors(chain = true)
+@Data
+@Accessors(chain = true)
 public class MedicalRecord {
 
     @Property
