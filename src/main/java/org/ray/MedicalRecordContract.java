@@ -39,10 +39,11 @@ public class MedicalRecordContract implements ContractInterface {
 
         ChaincodeStub stub = ctx.getStub();
         for (int i = 0; i < 10; i++ ) {
-            MedicalRecord medicalRecord = new MedicalRecord().setName("patient-" + i)
+            MedicalRecord medicalRecord = new MedicalRecord()
+                    .setName("patient-" + i)
                     .setAge(new Random().nextInt())
                     .setDepartment("骨科")
-                    .setDescript("骨裂")
+                    .setDiagonose("骨裂")
                     .setDoctorname("张三")
                     .setHistory("无");
             stub.putStringState(medicalRecord.getName() , JSON.toJSONString(medicalRecord));
@@ -86,7 +87,7 @@ public class MedicalRecordContract implements ContractInterface {
 
     //增加一个病历本
     @Transaction
-    public MedicalRecord createMedicalRecord(final Context ctx, final String key , String name , Integer age , String doctorname , String department, String descript, String history) {
+    public MedicalRecord createMedicalRecord(final Context ctx, final String key , String name , Integer age , String Date, String address, String userID, String doctorname , String department, String diagonose, String history) {
 
         ChaincodeStub stub = ctx.getStub();
         String recordState = stub.getStringState(key);
@@ -102,10 +103,14 @@ public class MedicalRecordContract implements ContractInterface {
         MedicalRecord medicalRecord = new MedicalRecord()
                 .setName(name)
                 .setAge(age)
+                .setAddress(address)
+                .setUserID(userID)
+                .setDate(Date)
                 .setDepartment(department)
-                .setDescript(descript)
                 .setDoctorname(doctorname)
-                .setHistory(history);
+                .setDoctorname(doctorname)
+                .setHistory(history)
+                .setDiagonose(diagonose);
 
         String json = JSON.toJSONString(medicalRecord);
         //
@@ -118,7 +123,7 @@ public class MedicalRecordContract implements ContractInterface {
 
     //修改数据
     @Transaction
-    public MedicalRecord updateMedicalRecord(final Context ctx, final String key , String name , Integer age , String doctorname , String department, String descript, String history) {
+    public MedicalRecord updateMedicalRecord(final Context ctx, final String key , String name , Integer age , String Date, String address, String userID, String doctorname , String department, String diagonose, String history) {
 
         ChaincodeStub stub = ctx.getStub();
         String recordState = stub.getStringState(key);
@@ -132,10 +137,14 @@ public class MedicalRecordContract implements ContractInterface {
         MedicalRecord medicalRecord = new MedicalRecord()
                 .setName(name)
                 .setAge(age)
+                .setAddress(address)
+                .setUserID(userID)
+                .setDate(Date)
                 .setDepartment(department)
-                .setDescript(descript)
                 .setDoctorname(doctorname)
-                .setHistory(history);
+                .setDoctorname(doctorname)
+                .setHistory(history)
+                .setDiagonose(diagonose);
 
         stub.putStringState(key, JSON.toJSONString(medicalRecord));
 
@@ -144,7 +153,7 @@ public class MedicalRecordContract implements ContractInterface {
 
     //删除病历本
     @Transaction
-    public MedicalRecord MedicalRecord(final Context ctx, final String key) {
+    public MedicalRecord deleteMedicalRecord(final Context ctx, final String key) {
 
         ChaincodeStub stub = ctx.getStub();
         String recordState = stub.getStringState(key);

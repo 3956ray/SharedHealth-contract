@@ -10,12 +10,23 @@ import org.hyperledger.fabric.contract.annotation.Property;
 @Data
 @Accessors(chain = true)
 public class MedicalRecord {
-
     @Property
     String name;
 
     @Property
     Integer age;
+
+    @Property
+    //出生日期
+    String Date;
+
+    @Property
+    //家庭地址
+    String address;
+
+    //身份证号
+    @Property
+    String userID;
 
     //主治医生
     @Property
@@ -25,11 +36,11 @@ public class MedicalRecord {
     @Property
     String department;
 
-    //诊断描述
-    @Property
-    String descript;
-
-    //过往病史
+    //过往病史(想使用表格实现)
     @Property
     String history;
+
+    //诊断描述（此次）
+    @Property
+    String diagonose;
 }
